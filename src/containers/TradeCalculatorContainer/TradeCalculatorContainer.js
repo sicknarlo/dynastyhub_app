@@ -120,6 +120,7 @@ export default class TradeCalculatorContainer extends Component {
       team2Value * (1 - (penalty * (fullTeam2.length - fullTeam1.length)));
     const valueDiff = Number(((Math.min(team1Value, team2Value) / Math.max(team1Value, team2Value)) * 100).toFixed(0));
 
+
     return <TradeCalculator
               players={players}
               loading={loading}
