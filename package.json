@@ -6,6 +6,7 @@
     "@nivo/line": "^0.42.1",
     "antd": "^3.6.2",
     "highcharts": "^6.1.0",
+    "husky": "^0.14.3",
     "lint-staged": "^7.2.0",
     "moment": "^2.22.2",
     "prettier": "^1.13.5",
@@ -22,7 +23,14 @@
     "react-sparklines": "^1.7.0",
     "styled-components": "^3.3.2"
   },
+  "lint-staged": {
+    "src/**/*.{js,jsx,json,css}": [
+      "prettier --single-quote --write",
+      "git add"
+    ]
+  },
   "scripts": {
+    "precommit": "lint-staged",
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom",
