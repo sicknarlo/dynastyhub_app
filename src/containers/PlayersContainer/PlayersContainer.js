@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router'
+import { connect } from 'react-redux';
 import { roundNumber, value, generateADPs, toSuperflex } from '../../utils';
 import Players from '../../components/Players';
 
-export default class PlayersContainer extends Component {
+class PlayersContainer extends Component {
   state = {
-    rawPlayers: [],
     players: [],
     loading: false,
     sorter: (a, b) => a.adp - b.adp,
@@ -27,21 +28,15 @@ export default class PlayersContainer extends Component {
     'Pick',
     'Rookie'
   ]
-  async componentDidMount() {
-    this.setState({
-      players: [],
-      loading: true
-    })
-    const playerFetch = await fetch(`https://dynastyhub-api.herokuapp.com/api/v1/playerList`);
-    this.setState({ rawPlayers: await playerFetch.json() });
+  componentDidMount() {
     this.generatePlayers();
   }
   generatePlayers() {
-    let players = this.state.rawPlayers;
+    let players = this.props.rawPlayers;
     if (this.props.superFlex) {
       players = players.map(x => ({
         ...x,
-        picks: x.picks.map(y => ({ ...y, pick: toSuperflex({pos: x.position, pick: y.pick })})),
+        picks: x.picks.map(y => ({ ...y, pick: toSuperflex({ pos: x.position, pick: y.pick })})),
         rank: x.rank ? {
           avg: toSuperflex({ pos: x.position, pick: x.rank.avg }),
           min: toSuperflex({ pos: x.position, pick: x.rank.min }),
@@ -57,7 +52,7 @@ export default class PlayersContainer extends Component {
         return {
           ...x,
           adp,
-          trend: adps.length ? roundNumber(adps[adps.length - 1].pick - adps[0].pick) : 0,
+          trend: adps.length ? roundNumber(adps[0].pick - adps[adps.length - 1].pick) : 0,
           opportunity: x.rank && x.rank.avg && adp ? roundNumber(adp - x.rank.avg) : 0,
           rank: x.rank ? x.rank.avg : null,
           value: value(adp),
@@ -69,6 +64,9 @@ export default class PlayersContainer extends Component {
   componentDidUpdate(prevProps) {
     if (prevProps.superFlex !== this.props.superFlex) {
       this.setState({ loading: true });
+      this.generatePlayers();
+    }
+    if (!prevProps.rawPlayers.length && this.props.rawPlayers.length) {
       this.generatePlayers();
     }
   }
@@ -142,3 +140,13 @@ export default class PlayersContainer extends Component {
             />;
   }
 }
+
+export default withRouter(
+  connect(
+    state => ({
+      rawPlayers: state.players.items,
+      isFetchingPlayers: state.players.isFetching
+    }),
+    {}
+  )(PlayersContainer)
+);

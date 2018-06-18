@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router'
+import { connect } from 'react-redux';
+import { fetchPlayers } from '../../actions/players.actions';
 import FormatContext from '../../context/FormatContext';
 import AppView from '../../components/AppView';
 
@@ -11,6 +13,7 @@ class Main extends Component {
   }
   async componentDidMount() {
     const pickCountResponse = await fetch('https://dynastyhub-api.herokuapp.com/api/v1/pickcount');
+    this.props.fetchPlayers();
     this.setState({
       pickCount: await pickCountResponse.json()
     })
@@ -19,7 +22,7 @@ class Main extends Component {
   toggleSuper = () => this.setState({ superFlex: !this.state.superFlex })
   render() {
     const { sidebarCollapsed, pickCount, superFlex } = this.state;
-    const { location } = this.props;
+    const { location, players, isFetchingPlayers } = this.props;
 
     return (
       <FormatContext.Provider value={superFlex}>
@@ -30,10 +33,19 @@ class Main extends Component {
           pickCount={pickCount}
           superFlex={superFlex}
           toggleSuper={this.toggleSuper}
+          loading={isFetchingPlayers}
         />
       </FormatContext.Provider>
     )
   }
 }
 
-export default withRouter(Main);
+export default withRouter(
+  connect(
+    state => ({
+      players: state.players.items,
+      isFetchingPlayers: state.players.isFetching
+    }),
+    { fetchPlayers }
+  )(Main)
+);

@@ -7,3 +7,6 @@ export { default as value } from './value';
 export { default as roundNumber } from './roundNumber';
 export { default as generateADPs } from './generateADPs';
 export { default as toSuperflex } from './toSuperflex';
+export { default as filterOutliers } from './filterOutliers';
+export { default as generateRanges } from './generateRanges';
+export { default as formatHeight } from './formatHeight';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Breadcrumb } from 'antd';
+import { Layout, Breadcrumb, Spin } from 'antd';
 import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { appRoutes } from '../../routes';
@@ -7,7 +7,15 @@ import Sidebar from '../Sidebar';
 import Header from '../Header';
 import { AppContent } from './styles';
 
-const AppView = ({ sidebarCollapsed, toggleSidebar, location, pickCount, superFlex, toggleSuper }) => {
+const AppView = ({
+  sidebarCollapsed,
+  toggleSidebar,
+  location,
+  pickCount,
+  superFlex,
+  toggleSuper,
+  loading
+}) => {
   const matchedRoute = appRoutes.find(x => x.path === location.pathname);
   return (
     <Layout style={{ height: '100vh' }}>
@@ -18,11 +26,9 @@ const AppView = ({ sidebarCollapsed, toggleSidebar, location, pickCount, superFl
           toggleSidebar={toggleSidebar}
         />
         <AppContent>
-          <Breadcrumb>
-            <Breadcrumb.Item>App</Breadcrumb.Item>
-          </Breadcrumb>
-          <h1>{matchedRoute.name}</h1>
+          <h1>{matchedRoute && matchedRoute.name}</h1>
           <div style={{ marginTop: '15px' }}>
+            {loading && <Spin />}
             {appRoutes.map(x =>
               <Route
                 exact

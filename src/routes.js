@@ -21,12 +21,21 @@ const AsyncTradeCalculator = Loadable({
   loading: LoadingComponent
 });
 
+const AsyncDashboard = Loadable({
+  loader: () => import('./containers/DashboardContainer'),
+  loading: LoadingComponent
+});
+const AsyncPlayer = Loadable({
+  loader: () => import('./containers/PlayerContainer'),
+  loading: LoadingComponent
+});
+
 export const appRoutes = [
   {
     name: 'Dashboard',
     title: 'Dashboard',
     path: '/app/dashboard',
-    routeComponent: null,
+    routeComponent: AsyncDashboard,
     icon: 'dashboard',
     key: 0
   },
@@ -45,5 +54,11 @@ export const appRoutes = [
     routeComponent: AsyncTradeCalculator,
     icon: 'calculator',
     key: 2,
-  }
+  },
+  {
+    name: 'Player',
+    title: 'Dynasty Trade Calculator',
+    path: '/app/players/:_playerId',
+    routeComponent: AsyncPlayer,
+  },
 ]

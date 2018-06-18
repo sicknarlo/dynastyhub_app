@@ -24,7 +24,7 @@ const Sidebar =  ({ sidebarCollapsed, location, superFlex, toggleSuper }) => {
         <div style={desktopBrandStyles}>DynastyFF Tools</div>
       </Brand>
       <Menu theme="dark" mode="inline" selectedKeys={selectedKeys}>
-        {appRoutes.map((x) =>
+        {appRoutes.filter(x => x.icon).map((x) =>
           <Menu.Item key={x.key}>
             <Icon type={x.icon} />
             <Link style={{ display: 'inline' }} to={x.path}>{x.name}</Link>
