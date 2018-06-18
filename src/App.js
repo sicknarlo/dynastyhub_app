@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import Loadable from 'react-loadable';
 import 'react-select/dist/react-select.css';
+import GA from './utils/GoogleAnalytics'
 import LoadingComponent from './components/LoadingComponent';
 
 const AsyncMain = Loadable({
@@ -13,9 +14,10 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <Switch>
+        <div>
+          { GA.init() && <GA.RouteTracker /> }
           <Route path='/app' component={AsyncMain} />
-        </Switch>
+        </div>
       </BrowserRouter>
     );
   }

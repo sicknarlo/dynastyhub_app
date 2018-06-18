@@ -10,3 +10,4 @@ export { default as toSuperflex } from './toSuperflex';
 export { default as filterOutliers } from './filterOutliers';
 export { default as generateRanges } from './generateRanges';
 export { default as formatHeight } from './formatHeight';
+export { default as GoogleAnalytics } from './GoogleAnalytics';
