@@ -363,7 +363,7 @@ const TradeCalculator = ({
               },
 
               series: [{
-                name: 'Temperatures',
+                name: 'ADP Range',
                 data: fullTeam1.concat(fullTeam2).sort((a, b) => a.adp -  b.adp).map(x => {
                   const range = generateRanges(x.picks);
                   return [range[range.length - 1][1], range[range.length - 1][2]]
