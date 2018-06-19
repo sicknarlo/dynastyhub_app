@@ -33,7 +33,7 @@ class PlayersContainer extends Component {
   }
   generatePlayers() {
     let players = this.props.rawPlayers;
-    if (this.props.superFlex) {
+    if (this.props.superflex) {
       players = players.map(x => ({
         ...x,
         picks: x.picks.map(y => ({ ...y, pick: toSuperflex({ pos: x.position, pick: y.pick })})),
@@ -62,7 +62,7 @@ class PlayersContainer extends Component {
     })
   }
   componentDidUpdate(prevProps) {
-    if (prevProps.superFlex !== this.props.superFlex) {
+    if (prevProps.superflex !== this.props.superflex) {
       this.setState({ loading: true });
       this.generatePlayers();
     }
@@ -145,7 +145,8 @@ export default withRouter(
   connect(
     state => ({
       rawPlayers: state.players.items,
-      isFetchingPlayers: state.players.isFetching
+      isFetchingPlayers: state.players.isFetching,
+      superflex: state.format.superflex
     }),
     {}
   )(PlayersContainer)

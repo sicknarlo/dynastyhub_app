@@ -1,5 +1,5 @@
 export default (someArray) => {
-  if (someArray.length === 1) return someArray;
+  if (someArray.length < 5) return someArray;
 
   // Copy the values, rather than operating on references to existing values
   var values = someArray.concat();

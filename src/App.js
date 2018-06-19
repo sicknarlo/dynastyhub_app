@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, BrowserRouter } from 'react-router-dom';
+import { Route, BrowserRouter, Switch, Redirect } from 'react-router-dom';
 import Loadable from 'react-loadable';
 import 'react-select/dist/react-select.css';
 import GA from './utils/GoogleAnalytics'
@@ -16,7 +16,9 @@ class App extends Component {
       <BrowserRouter>
         <div>
           { GA.init() && <GA.RouteTracker /> }
-          <Route path='/app' component={AsyncMain} />
+          <Switch>
+            <Route path='/' component={AsyncMain} />
+          </Switch>
         </div>
       </BrowserRouter>
     );

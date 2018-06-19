@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Input, Form, Checkbox, Icon } from 'antd';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import { PlayerToolBar, PlayerTable } from './styles';
 import ContentComponent from '../ContentComponent';
 import birthdateToAge from '../../utils/birthdateToAge';
@@ -11,7 +12,7 @@ const playerTableColumns = [
     title: 'Name',
     dataIndex: 'name',
     key: 'name',
-    render: (value, player) => <Link to={`/app/players/${player._id}`}>{player.name}</Link>
+    render: (value, player) => <Link to={`/players/${player._id}`}>{player.name}</Link>
   }, {
     title: 'Age',
     dataIndex: 'birthdate',
@@ -25,7 +26,8 @@ const playerTableColumns = [
   {
     title: 'ADP',
     dataIndex: 'adp',
-    sorter: true
+    sorter: true,
+    render: value => value.toFixed(2)
   },
   {
     title: 'Rank',
@@ -67,6 +69,7 @@ const Players = ({
 }) => {
   return (
     <ContentComponent>
+      <Helmet title="DynastyFFTools - ADP" />
       <PlayerToolBar style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Form.Item label="Search Players">
           <Input value={searchValue} onChange={handleSearchChange} />

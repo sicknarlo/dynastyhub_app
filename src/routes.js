@@ -1,19 +1,9 @@
-import React from 'react';
 import Loadable from 'react-loadable';
-import FormatContext from './context/FormatContext';
 import LoadingComponent from './components/LoadingComponent';
 
 const AsyncPlayers = Loadable({
   loader: () => import('./containers/PlayersContainer'),
   loading: LoadingComponent,
-  render: (loaded, props) => {
-    let Component = loaded.default;
-    return (
-      <FormatContext.Consumer>
-        {superFlex => <Component {...props} superFlex={superFlex} />}
-      </FormatContext.Consumer>
-    )
-  }
 });
 
 const AsyncTradeCalculator = Loadable({
@@ -30,11 +20,17 @@ const AsyncPlayer = Loadable({
   loading: LoadingComponent
 });
 
+const AsyncFAQ = Loadable({
+  loader: () => import('./components/FAQ'),
+  loading: LoadingComponent
+});
+
+
 export const appRoutes = [
   {
     name: 'Dashboard',
     title: 'Dashboard',
-    path: '/app/dashboard',
+    path: '/',
     routeComponent: AsyncDashboard,
     icon: 'dashboard',
     key: 0
@@ -42,7 +38,7 @@ export const appRoutes = [
   {
     name: 'Players',
     title: 'Players',
-    path: '/app/players',
+    path: '/players',
     routeComponent: AsyncPlayers,
     icon: 'usergroup-add',
     key: 1,
@@ -50,15 +46,23 @@ export const appRoutes = [
   {
     name: 'Trade Calculator',
     title: 'Dynasty Trade Calculator',
-    path: '/app/calculator',
+    path: '/dynasty-trade-calculator',
     routeComponent: AsyncTradeCalculator,
     icon: 'calculator',
     key: 2,
   },
   {
     name: 'Player',
-    title: 'Dynasty Trade Calculator',
-    path: '/app/players/:_playerId',
+    title: 'Player',
+    path: '/players/:_playerId',
     routeComponent: AsyncPlayer,
+  },
+  {
+    name: 'FAQ',
+    title: 'FAQ',
+    path: '/faq',
+    routeComponent: AsyncFAQ,
+    icon: 'calculator',
+    key: 3,
   },
 ]

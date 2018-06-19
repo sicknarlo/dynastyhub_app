@@ -15,10 +15,12 @@ import { Spin,
 } from 'antd';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Highcharts from 'highcharts';
-import moment from 'moment';
+import { Helmet } from 'react-helmet';
 import ReactHighcharts from 'react-highcharts';
+import HighchartsMore from 'highcharts-more';
+import { generateRanges } from '../../utils'
 import ContentComponent from '../ContentComponent';
+HighchartsMore(ReactHighcharts.Highcharts);
 
 const TabPane = Tabs.TabPane;
 
@@ -99,7 +101,6 @@ const ResultsTabPane = styled(TabPane)`
 `
 
 const ProgressSelector = (progress) => {
-  console.log(progress)
   if (progress > 94) return <SuccessProgress type="circle" percent={progress} />
   if (progress > 89) return <Progress type="circle" percent={progress} />
   if (progress > 80) return <WarningProgress type="circle" percent={progress} />
@@ -158,6 +159,7 @@ const TradeCalculator = ({
     { title: 'Position', dataIndex: 'position', key: 'position' },
     { title: 'ADP', dataIndex: 'adp', key: 'adp' },
     { title: 'Trend', dataIndex: 'trend', key: 'trend' },
+    { title: 'Rank', dataIndex: 'rank', key: 'rank' },
     { title: 'Value', dataIndex: 'value', key: 'value' },
   ]
 
@@ -173,6 +175,7 @@ const TradeCalculator = ({
   const statement = statementGenerator(valueDiff, team1Value, team2Value);
   return (
     <ContentComponent>
+      <Helmet title="DynastyFFTools - Dynasty Trade Calculator" />
       <CalculatorWrapper>
         <CalculatorTeam>
           <h2>Team 1</h2>
@@ -275,7 +278,7 @@ const TradeCalculator = ({
                   text: 'ADP'
                 },
                 subtitle: {
-                  text: 'Past 6 months'
+                  text: 'Past 3 months'
                 },
                 yAxis: {
                   title: {
@@ -329,6 +332,45 @@ const TradeCalculator = ({
 
               }}
             />
+            <ReactHighcharts config={{
+              chart: {
+                type: 'columnrange',
+                inverted: true
+              },
+              title: {
+                text: 'Player Value Ranges'
+              },
+
+              xAxis: {
+                categories: fullTeam1.concat(fullTeam2).sort((a, b) => a.adp -  b.adp).map(x => x.name)
+              },
+              yAxis: {
+                title: {
+                  text: 'Value'
+                }
+              },
+              plotOptions: {
+                columnrange: {
+                  dataLabels: {
+                    enabled: true,
+                    format: 'Pick {y}'
+                  }
+                }
+              },
+
+              legend: {
+                enabled: false
+              },
+
+              series: [{
+                name: 'Temperatures',
+                data: fullTeam1.concat(fullTeam2).sort((a, b) => a.adp -  b.adp).map(x => {
+                  const range = generateRanges(x.picks);
+                  return [range[range.length - 1][1], range[range.length - 1][2]]
+                })
+              }]
+
+            }} />
           </div>
         </ResultsTabPane>
         <ResultsTabPane tab={<span><Icon type="usergroup-add" />Team 1 Gets</span>} key="2">
