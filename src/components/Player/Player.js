@@ -138,7 +138,7 @@ export default ({ players, player, timelineTypes, updateTimelineTypes }) => {
             <div style={{ marginTop: '10px', display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>
               <h2>ADP: {player.adps.length ? player.adps[player.adps.length - 1].pick : 'N/A'}</h2>
               <h2>ECR: {player.ranks.length ? player.ranks[player.ranks.length - 1].avg : 'N/A'}</h2>
-              <h2>FFC ADP: {player.ffcAdps.length ? player.ffcAdps[player.ffcAdps.length - 1].avg : 'N/A'}</h2>
+              <h2>FFC ADP: {player.ffcAdps.length > 0 ? player.ffcAdps[player.ffcAdps.length - 1].avg : 'N/A'}</h2>
             </div>
             <Divider style={{ marginBottom: '10px', marginTop: '10px' }} />
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
