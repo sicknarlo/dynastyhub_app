@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout, Spin } from 'antd';
-import { Route } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import generateRandomLoadingMessage from '../../utils/generateRandomLoadingMessage';
 import { appRoutes } from '../../routes';
@@ -34,14 +34,17 @@ const AppView = ({
         <AppContent>
           <h1>{matchedRoute && matchedRoute.name}</h1>
           <div style={{ marginTop: '15px' }}>
-            {appRoutes.map(x =>
-              <Route
-                exact
-                path={x.path}
-                component={x.routeComponent}
-                key={x.name}
-              />
-            )}
+            <Switch>
+              {appRoutes.map(x =>
+                <Route
+                  exact
+                  path={x.path}
+                  component={x.routeComponent}
+                  key={x.name}
+                />
+              )}
+              <Redirect from="/players" to="/adp"/>
+            </Switch>
           </div>
         </AppContent>
         <Layout.Footer style={{ textAlign: 'center' }}>

@@ -36,9 +36,9 @@ export const appRoutes = [
     key: 0
   },
   {
-    name: 'Players',
-    title: 'Players',
-    path: '/players',
+    name: 'ADP',
+    title: 'ADP',
+    path: '/adp',
     routeComponent: AsyncPlayers,
     icon: 'usergroup-add',
     key: 1,

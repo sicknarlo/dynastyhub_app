@@ -31,12 +31,12 @@ const end = ['capacitor',
 ]
 
 const phrases = [
-  'testing ozone.',
-  'embiggening prototypes.',
-  'deterministically simulating the future.',
-  'testing for perfection.',
+  'testing ozone',
+  'embiggening prototypes',
+  'deterministically simulating the future',
+  'testing for perfection',
 ]
 
-export default () => randomInt(2) === 0
+export default () => randomInt(5) > 3
   ? phrases[randomInt(phrases.length)]
   : `${beginning[randomInt(beginning.length)]} ${middle[randomInt(middle.length)]} ${end[randomInt(end.length)]}`;
