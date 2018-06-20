@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, BrowserRouter, Switch, Redirect } from 'react-router-dom';
+import { Route, BrowserRouter, Switch } from 'react-router-dom';
 import Loadable from 'react-loadable';
 import 'react-select/dist/react-select.css';
 import GA from './utils/GoogleAnalytics'

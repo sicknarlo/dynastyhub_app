@@ -1,7 +1,8 @@
 import React from 'react';
-import { Layout, Breadcrumb, Spin } from 'antd';
+import { Layout, Spin } from 'antd';
 import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import generateRandomLoadingMessage from '../../utils/generateRandomLoadingMessage';
 import { appRoutes } from '../../routes';
 import Sidebar from '../Sidebar';
 import Header from '../Header';
@@ -14,9 +15,14 @@ const AppView = ({
   pickCount,
   superFlex,
   toggleSuper,
-  loading
+  loading,
 }) => {
   const matchedRoute = appRoutes.find(x => x.path === location.pathname);
+  if (loading) return (
+    <div style={{ display: 'flex', height: '100vh', justifyContent: 'center', alignItems: 'center', alignContent: 'center' }}>
+      <Spin size='large' tip={generateRandomLoadingMessage()}/>
+    </div>
+  )
   return (
     <Layout style={{ height: '100vh' }}>
       <Sidebar sidebarCollapsed={sidebarCollapsed} location={location} superFlex={superFlex} toggleSuper={toggleSuper} />
@@ -28,7 +34,6 @@ const AppView = ({
         <AppContent>
           <h1>{matchedRoute && matchedRoute.name}</h1>
           <div style={{ marginTop: '15px' }}>
-            {loading && <Spin />}
             {appRoutes.map(x =>
               <Route
                 exact

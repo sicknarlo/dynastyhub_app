@@ -150,7 +150,7 @@ class TradeCalculatorContainer extends Component {
     });
   }
   render() {
-    const { players, loading, team1, team2, showResults, fullTeam1, fullTeam2, currentTab, penalty, alertCount } = this.state;
+    const { loading, team1, team2, showResults, fullTeam1, fullTeam2, currentTab, penalty, alertCount } = this.state;
     const { rawPlayers } = this.props
     const team1Options = rawPlayers.reduce((acc, x) => {
       let value = x._id;
