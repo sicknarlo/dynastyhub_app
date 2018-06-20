@@ -35,6 +35,13 @@ class PlayerContainer extends Component {
           adps: generateADPs(picks),
           trades,
           ranks,
+          ffcAdps: rawPlayer.adps.filter(x => x.source === 'ffc').map(x => ({
+            avg: toSuperflex({ pos: rawPlayer.position, pick: x.avg }),
+            best: toSuperflex({ pos: rawPlayer.position, pick: x.best }),
+            worst: toSuperflex({ pos: rawPlayer.position, pick: x.worst }),
+            stdev: x.stdev,
+            date: x.date,
+          })),
           events: picks.map(x => ({
             date: x.date,
             item: (
