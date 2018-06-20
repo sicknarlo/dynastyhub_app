@@ -47,7 +47,7 @@ const AppView = ({
         <Layout.Footer style={{ textAlign: 'center' }}>
           <div>Created by sicknarlo 2014-2018</div>
           <div>Powered by {pickCount.toLocaleString()} draft picks and counting</div>
-          <div>Thanks to <a href='www.myfantasyleague.com'>MFL</a> and <a href='www.fantasypros.com'>FantasyPros</a></div>
+          <div>Thanks to <a href='www.myfantasyleague.com'>MFL</a>,  <a href='www.fantasyfootballcalculator.com'>Fantasy Football Calculator</a>, and <a href='www.fantasypros.com'>FantasyPros</a></div>
         </Layout.Footer>
       </Layout>
     </Layout>

@@ -137,8 +137,8 @@ export default ({ players, player, timelineTypes, updateTimelineTypes }) => {
             />
             <div style={{ marginTop: '10px', display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>
               <h2>ADP: {player.adps.length ? player.adps[player.adps.length - 1].pick : 'N/A'}</h2>
-              <Divider type="vertical" style={{ height: '100%' }}/>
               <h2>ECR: {player.ranks.length ? player.ranks[player.ranks.length - 1].avg : 'N/A'}</h2>
+              <h2>FFC ADP: {player.ffcAdps.length ? player.ffcAdps[player.ranks.length - 1].avg : 'N/A'}</h2>
             </div>
             <Divider style={{ marginBottom: '10px', marginTop: '10px' }} />
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -211,7 +211,6 @@ export default ({ players, player, timelineTypes, updateTimelineTypes }) => {
                   title: {
                     text: 'Pick'
                   },
-                  max: Math.max.apply(null, player.adps.map(x => x.pick)) + 5,
                   reversed: true,
                 },
                 plotOptions: {
@@ -255,7 +254,37 @@ export default ({ players, player, timelineTypes, updateTimelineTypes }) => {
                     marker: {
                       enabled: false
                     }
+                },
+                {
+                  type: 'spline',
+                  name: `${player.name} FFC ADP`,
+                  data: player.ffcAdps.map(x => [new Date(x.date).getTime(), x.avg]),
+                },
+                {
+                  name: 'FFC ADP Range',
+                  data: player.ffcAdps.map(x => [new Date(x.date).getTime(), x.best, x.worst]),
+                  type: 'arearange',
+                  lineWidth: 0,
+                  linkedTo: ':previous',
+                  fillOpacity: 0.3,
+                  zIndex: 0,
+                  marker: {
+                    enabled: false
+                  }
+              },
+              {
+                name: 'FFC ADP Stdev',
+                data: player.ffcAdps.map(x => [new Date(x.date).getTime(), x.avg - x.stdev < 1 ? 1 : x.avg - x.stdev, x.avg + x.stdev]),
+                type: 'arearange',
+                lineWidth: 0,
+                linkedTo: ':previous',
+                fillOpacity: 0.3,
+                zIndex: 0,
+                marker: {
+                  enabled: false
                 }
+            },
+
               ]
             }}
             />

@@ -70,6 +70,7 @@ class PlayerContainer extends Component {
         ...rawPlayer,
         adps: generateADPs(rawPlayer.picks),
         trades: rawPlayer.trades.filter(x => x.format === 'ppr'),
+        ffcAdps: rawPlayer.adps.filter(x => x.source === 'ffc'),
         events: rawPlayer.picks.map(x => ({
           date: x.date,
           item: (
