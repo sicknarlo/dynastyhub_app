@@ -89,6 +89,7 @@ const Players = ({
           showSizeChanger: true,
           pageSizeOptions: ['10', '25', '50', '100', '200'],
         }}
+        pagination={false}
       />
     </ContentComponent>
   )

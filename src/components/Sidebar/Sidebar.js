@@ -7,7 +7,7 @@ import { Brand } from './styles';
 
 const { Sider } = Layout;
 
-const Sidebar =  ({ sidebarCollapsed, location, superFlex, toggleSuper }) => {
+const Sidebar =  ({ sidebarCollapsed, location, superFlex, toggleSuper, toggleSidebar, isMobile }) => {
   const desktopBrandStyles = { display: sidebarCollapsed ? 'none' : '' };
   const pathname = location.pathname;
   const selectedKeys = [String(appRoutes.findIndex(x => x.path === pathname))];
@@ -27,7 +27,13 @@ const Sidebar =  ({ sidebarCollapsed, location, superFlex, toggleSuper }) => {
         {appRoutes.filter(x => x.icon).map((x) =>
           <Menu.Item key={x.key}>
             <Icon type={x.icon} />
-            <Link style={{ display: 'inline' }} to={x.path}>{x.name}</Link>
+            <Link
+              style={{ display: 'inline' }}
+              to={x.path}
+              onClick={() => isMobile && toggleSidebar()}
+            >
+              {x.name}
+            </Link>
           </Menu.Item>
         )}
         <Menu.Item onClick={toggleSuper}>

@@ -9,6 +9,7 @@ class Main extends Component {
   state = {
     sidebarCollapsed: window.matchMedia('(max-width: 767px)').matches,
     pickCount: 0,
+    isMobile: window.matchMedia('(max-width: 767px)').matches
   }
   async componentDidMount() {
     const pickCountResponse = await fetch('https://dynastyhub-api.herokuapp.com/api/v1/pickcount');
@@ -27,7 +28,7 @@ class Main extends Component {
     this.props.setSuper(!this.props.superflex)
   }
   render() {
-    const { sidebarCollapsed, pickCount } = this.state;
+    const { sidebarCollapsed, pickCount, isMobile } = this.state;
     const { location, isFetchingPlayers, superflex } = this.props;
 
     return (
@@ -39,6 +40,7 @@ class Main extends Component {
         superFlex={superflex}
         toggleSuper={this.toggleSuper}
         loading={isFetchingPlayers}
+        isMobile={isMobile}
       />
     )
   }

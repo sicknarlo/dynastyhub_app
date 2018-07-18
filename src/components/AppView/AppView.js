@@ -16,6 +16,7 @@ const AppView = ({
   superFlex,
   toggleSuper,
   loading,
+  isMobile
 }) => {
   const matchedRoute = appRoutes.find(x => x.path === location.pathname);
   if (loading) return (
@@ -25,7 +26,14 @@ const AppView = ({
   )
   return (
     <Layout style={{ height: '100vh' }}>
-      <Sidebar sidebarCollapsed={sidebarCollapsed} location={location} superFlex={superFlex} toggleSuper={toggleSuper} />
+      <Sidebar
+        sidebarCollapsed={sidebarCollapsed}
+        location={location}
+        superFlex={superFlex}
+        toggleSuper={toggleSuper}
+        toggleSidebar={toggleSidebar}
+        isMobile={isMobile}
+      />
       <Layout>
         <Header
           sidebarCollapsed={sidebarCollapsed}
