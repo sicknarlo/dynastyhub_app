@@ -20,6 +20,12 @@ export default (picks) => {
       }
     }
   });
+  buckets.forEach((bucket, i) => {
+    while (buckets[i].length < 4) {
+      const date = buckets[0].date;
+      buckets[i].push({ pick: 350, date });
+    }
+  })
   return buckets.map(array => {
     return {
       pick: median(array.map(x => x.pick)),

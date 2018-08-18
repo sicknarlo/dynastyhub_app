@@ -85,10 +85,6 @@ const Players = ({
         loading={loading}
         rowKey={x => x._id}
         onChange={handleTableChange}
-        pagination={{
-          showSizeChanger: true,
-          pageSizeOptions: ['10', '25', '50', '100', '200'],
-        }}
         pagination={false}
       />
     </ContentComponent>
