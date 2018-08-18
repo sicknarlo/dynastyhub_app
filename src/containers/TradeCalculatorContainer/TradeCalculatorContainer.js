@@ -178,11 +178,6 @@ class TradeCalculatorContainer extends Component {
     }, []);
     let team1Value = fullTeam1.reduce((acc, el) => acc + value(el.adp), 0);
     let team2Value = fullTeam2.reduce((acc, el) => acc + value(el.adp), 0);
-
-    if (fullTeam1.length > fullTeam2.length) team1Value =
-      team1Value * (1 - (penalty * (fullTeam1.length - fullTeam2.length)));
-    if (fullTeam2.length > fullTeam1.length) team2Value =
-      team2Value * (1 - (penalty * (fullTeam2.length - fullTeam1.length)));
     const valueDiff = Number(((Math.min(team1Value, team2Value) / Math.max(team1Value, team2Value)) * 100).toFixed(0));
 
     return <TradeCalculator

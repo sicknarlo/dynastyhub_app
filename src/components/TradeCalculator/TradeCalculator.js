@@ -377,13 +377,7 @@ const TradeCalculator = ({
           <h2>Value Gained: {(team2Value - team1Value).toFixed(0)}</h2>
           <TeamTable
             columns={teamColumns}
-            dataSource={fullTeam2.length > fullTeam1.length
-              ? fullTeam2.concat([{
-                name: 'Penalty',
-                value: `-${(((fullTeam2.length - fullTeam1.length) * penalty) * 100).toFixed(0)}%`
-              }])
-              : fullTeam2
-            }
+            dataSource={fullTeam2}
             pagination={false}
             footer={() => <div style={{ display: 'flex', justifyContent: 'flex-end' }}><strong>Total: {team2Value.toFixed(0)}</strong></div>}
           />
@@ -392,13 +386,7 @@ const TradeCalculator = ({
           <h2>Value Gained: {(team1Value - team2Value).toFixed(0)}</h2>
           <TeamTable
             columns={teamColumns}
-            dataSource={fullTeam1.length > fullTeam2.length
-              ? fullTeam1.concat([{
-                name: 'Penalty',
-                value: `-${(((fullTeam1.length - fullTeam2.length) * penalty) * 100).toFixed(0)}%`
-              }])
-              : fullTeam1
-            }
+            dataSource={fullTeam1}
             pagination={false}
             footer={() => <div style={{ display: 'flex', justifyContent: 'flex-end' }}><strong>Total: {team1Value.toFixed(0)}</strong></div>}
           />
