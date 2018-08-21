@@ -212,6 +212,7 @@ export default ({ players, player, timelineTypes, updateTimelineTypes }) => {
                     text: 'Pick'
                   },
                   reversed: true,
+                  max: Math.max(...player.adps.map(x => x.pick))
                 },
                 plotOptions: {
                   spline: {

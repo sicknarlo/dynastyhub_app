@@ -48,6 +48,7 @@ class PlayersContainer extends Component {
     this.setState({
       players: players.map(x => {
         const adps = generateADPs(x.picks);
+        if (x.name === 'Todd Gurley') console.log(x.picks)
         const adp = adps.length ? adps[adps.length - 1].pick : 500;
         return {
           ...x,
